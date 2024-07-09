@@ -6,14 +6,14 @@ import time
 
 start_time = time.time()
 # Load data
-def load_data(file_path, num_samples=30):
-    with open(file_path, 'r') as file:
-        data = json.load(file)
-    return Dataset.from_list(data[:num_samples])
-# def load_data(file_path):
+# def load_data(file_path, num_samples=30):
 #     with open(file_path, 'r') as file:
 #         data = json.load(file)
-#     return Dataset.from_list(data)
+#     return Dataset.from_list(data[:num_samples])
+def load_data(file_path):
+    with open(file_path, 'r') as file:
+        data = json.load(file)
+    return Dataset.from_list(data)
 
 train_data = load_data('train.json') 
 valid_data = load_data('valid.json')

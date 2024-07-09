@@ -93,7 +93,7 @@ res = []
 
 with open("test.json", 'r') as file:
     data = json.load(file)
-    for d in data[380:]:
+    for d in data[:30]:
         q_id = d["id"]
         print(q_id)
         question = d["question"]

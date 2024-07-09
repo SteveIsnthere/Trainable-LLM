@@ -13,7 +13,7 @@ def generate_follow_up(question, answer):
     outputs = model.generate(**inputs, max_length=1024, num_beams=5, early_stopping=True)
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-question = "Hello?"
-answer = "heellllo"
+question = "what is the word?"
+answer = "the word is hello"
 follow_up = generate_follow_up(question, answer)
 print(follow_up)
