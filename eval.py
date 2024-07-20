@@ -91,18 +91,75 @@ def generate_follow_up(question, answer):
 
 res = []
 
+# with open("test.json", 'r') as file:
+#     data = json.load(file)
+#     for d in data:
+#         q_id = d["id"]
+#         print(q_id)
+#         question = d["question"]
+#         answer = d["answer"]
+#         o_follow_up = d["follow-up"]
+#         follow_up = generate_follow_up(question, answer)
+#         bleu_score = bleu(o_follow_up, follow_up, False)
+#         bleu_mean = bleu(o_follow_up, follow_up, True)
+        
+#         res.append({"id": q_id, "follow_up": follow_up, "bert": bert_score(o_follow_up, follow_up), "nlp_similarity": nlp_similarity(o_follow_up, follow_up), "bleu_geo_mean": bleu_mean, "bleu1": bleu_score[0], "bleu2": bleu_score[1], "bleu3": bleu_score[2], "bleu4": bleu_score[3], "rouge": rouge(o_follow_up, follow_up), "meteor": meteor(o_follow_up, follow_up)})
+#         with open("res2.json", 'w') as file:
+#             json.dump(res, file, indent=4)
+
+
 with open("test.json", 'r') as file:
     data = json.load(file)
-    for d in data[:30]:
-        q_id = d["id"]
-        print(q_id)
-        question = d["question"]
-        answer = d["answer"]
-        o_follow_up = d["follow-up"]
-        follow_up = generate_follow_up(question, answer)
-        bleu_score = bleu(o_follow_up, follow_up, False)
-        bleu_mean = bleu(o_follow_up, follow_up, True)
+    # for d in data:
+    #     q_id = d["id"]
+    #     print(q_id)
+    #     question = d["question"]
+    #     answer = d["answer"]
+    #     o_follow_up = d["follow-up"]
+    #     follow_up = generate_follow_up(question, answer)
         
-        res.append({"id": q_id, "follow_up": follow_up, "bert": bert_score(o_follow_up, follow_up), "nlp_similarity": nlp_similarity(o_follow_up, follow_up), "bleu_geo_mean": bleu_mean, "bleu1": bleu_score[0], "bleu2": bleu_score[1], "bleu3": bleu_score[2], "bleu4": bleu_score[3], "rouge": rouge(o_follow_up, follow_up), "meteor": meteor(o_follow_up, follow_up)})
-        with open("res2.json", 'w') as file:
-            json.dump(res, file, indent=4)
+    #     res.append({"id": q_id, "follow_up": follow_up})
+    #     with open("out/test_q.json", 'w') as file:
+    #         json.dump(res, file, indent=4)
+    
+    # res = []
+                        
+    # with open("out/test_q.json", 'r') as file:
+    #     qs = json.load(file)
+    #     for q in qs:
+    #         q_id = q["id"]
+    #         print(q_id)
+
+    #         o_follow_up = data[q_id-3000]["follow-up"]
+            
+    #         res.append({"id": q_id, "follow_up": q['follow_up'], "bert": bert_score(o_follow_up, q['follow_up']), "nlp_similarity": nlp_similarity(o_follow_up, q['follow_up'])})
+    #         with open("out/p1.json", 'w') as file:
+    #             json.dump(res, file, indent=4)
+    res = []
+    
+    with open("out/p1.json", 'r') as file:
+        qs = json.load(file)
+        for q in qs:
+            q_id = q["id"]
+            print(q_id)
+            o_follow_up = data[q_id-3000]["follow-up"]
+            bleu_score = bleu(o_follow_up, q['follow_up'], False)
+            bleu_mean = bleu(o_follow_up, q['follow_up'], True)
+            
+            
+            res.append({"id": q_id, "follow_up": q['follow_up'], "bert": q['bert'], "nlp_similarity": q['nlp_similarity'], "bleu_geo_mean": bleu_mean, "bleu1": bleu_score[0], "bleu2": bleu_score[1], "bleu3": bleu_score[2], "bleu4": bleu_score[3]})
+            with open("out/p2.json", 'w') as file:
+                json.dump(res, file, indent=4)
+                
+    res = []
+                
+    with open("out/p2.json", 'r') as file:
+        qs = json.load(file)
+        for q in qs:
+            q_id = q["id"]
+            print(q_id)
+            o_follow_up = data[q_id-3000]["follow-up"]
+            
+            res.append({"id": q_id, "follow_up": q['follow_up'], "bert": q['bert'], "nlp_similarity": q['nlp_similarity'], "bleu_geo_mean": q['bleu_geo_mean'], "bleu1": q['bleu1'], "bleu2": q['bleu2'], "bleu3": q['bleu3'], "bleu4": q['bleu4'], "rouge": rouge(o_follow_up, q['follow_up']), "meteor": meteor(o_follow_up, q['follow_up'])})
+            with open("out/res.json", 'w') as file:
+                json.dump(res, file, indent=4)
